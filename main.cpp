@@ -109,6 +109,5 @@ int main(int argc, char* argv[]) {
 				attackerMac, targetIp, senderMac, senderIp);
 		sendArp(pcap, poison);
 	}
-
 	pcap_close(pcap);
 }
