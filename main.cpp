@@ -23,36 +23,6 @@ void usage() {
 	printf("sample : send-arp wlan0 192.168.10.2 192.168.10.1\n");
 }
 
-// int getHostInfo(const char* interfaceName, Ip* myIp, Mac* myMac) {
-// 	int sock = socket(AF_INET, SOCK_DGRAM, 0);
-// 	if (sock < 0) {
-// 		perror("socket()");
-// 		return -1;
-// 	}
-
-// 	struct ifreq ifr;
-// 	memset(&ifr, 0, sizeof(ifr));
-// 	strncpy(ifr.ifr_name, interfaceName, IFNAMSIZ - 1);
-
-// 	if (ioctl(sock, SIOCGIFHWADDR, &ifr) < 0) {
-// 		perror("ioctl(SIOCGIFHWADDR)");
-// 		close(sock);
-// 		return -1;
-// 	}
-// 	*myMac = Mac((uint8_t*)ifr.ifr_hwaddr.sa_data);
-
-// 	if (ioctl(sock, SIOCGIFADDR, &ifr) < 0) {
-// 		perror("ioctl(SIOCGIFADDR)");
-// 		close(sock);
-// 		return -1;
-// 	}
-// 	struct sockaddr_in* addr = (struct sockaddr_in*)&ifr.ifr_addr;
-// 	*myIp = Ip(addr->sin_addr.s_addr);
-
-// 	close(sock);
-// 	return 0;
-// }
-
 void fillArpPacket(EthArpPacket& pkt, uint16_t op, Mac eth_dmac, Mac eth_smac,
 		Mac arp_smac, Ip arp_sip, Mac arp_tmac, Ip arp_tip) {
 	pkt.eth_.dmac_ = eth_dmac;
@@ -141,5 +111,4 @@ int main(int argc, char* argv[]) {
 	}
 
 	pcap_close(pcap);
-	// return EXIT_SUCCESS;
 }
