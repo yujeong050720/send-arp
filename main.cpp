@@ -23,8 +23,8 @@ void usage() {
 	printf("sample: send-arp-test wlan0\n");
 }
 
-void fillArpPacket(EthArpPacket& pkt, uint16_t op, Mac eth_dmac, Mac eth_smac,
-		Mac arp_smac, Ip arp_sip, Mac arp_tmac, Ip arp_tip) {
+void fillArpPacket(EthArpPacket& pkt, uint16_t op, Mac eth_dmac, Mac eth_smac, Mac arp_smac, Ip arp_sip, Mac arp_tmac, Ip arp_tip)
+{
 	pkt.eth_.dmac_ = eth_dmac;
 	pkt.eth_.smac_ = eth_smac;
 	pkt.eth_.type_ = htons(EthHdr::Arp);
