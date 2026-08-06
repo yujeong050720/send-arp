@@ -62,12 +62,19 @@ Mac getMac(pcap_t* pcap, Ip attackerIp, Mac attackerMac, Ip ip) {
 		}
 
 		EthArpPacket* reply = (EthArpPacket*)packet;
-		if (ntohs(reply->eth_.type_) == EthHdr::Arp &&
-			ntohs(reply->arp_.op_) == ArpHdr::Reply &&
-			reply->arp_.sip_ == Ip(htonl(ip)) &&
-			reply->arp_.tip_ == Ip(htonl(attackerIp))) {
-			return reply->arp_.smac_;
-		}
+		if (ntohs(reply->eth_.type_) != EthHdr::Arp)
+			continue;
+
+		if (ntohs(reply->arp_.op_) != ArpHdr::Reply)
+			continue;
+
+		if (ntohl(reply->arp_.sip_) != ip)
+			continue;
+
+		if (ntohl(reply->arp_.tip_) != attackerIp)
+			continue;
+
+		return reply->arp_.smac_;
 	}
 }
 
